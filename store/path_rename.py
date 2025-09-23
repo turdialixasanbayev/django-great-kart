@@ -1,15 +1,19 @@
 import os
-from django.utils import timezone
 
+from django.utils import timezone
 from django.utils.deconstruct import deconstructible
 
 
 @deconstructible
 class PathAndRename(object):
-    """File rename & repath
+
+    """
+
+    File rename & repath
 
     Args:
         object: renamed path
+
     """
 
     def __init__(self, sub_path):
