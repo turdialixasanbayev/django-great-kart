@@ -1,0 +1,12 @@
+from django.contrib import admin
+
+from django.contrib.auth.models import Group
+
+
+admin.site.site_header = "Django GreatKart Admin Panel"
+admin.site.site_title = "Django GreatKart Admin Panel"
+admin.site.index_title = "Welcome to Django GreatKart Admin Panel"
+admin.site.empty_value_display = "Not available"
+
+
+admin.site.unregister(Group)
