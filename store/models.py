@@ -107,3 +107,27 @@ class Review(BaseModel):
 
     def __str__(self):
         return f"{self.user} - {self.product}"
+
+
+class Banner(BaseModel):
+    name = models.CharField(
+        max_length=225,
+        unique=True,
+        db_index=True,
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+    )
+    image = models.ImageField(
+        upload_to="banners/",
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Banner"
+        verbose_name_plural = "Banners"
+
+    def __str__(self):
+        return f"{self.name}"
