@@ -50,8 +50,8 @@ class Product(BaseModel):
             return self.price - (self.price * self.percentage / 100)
         return self.price
 
-    def get_absolute_url(self):
-        return reverse("product_detail", kwargs={"slug": self.slug})
+    # def get_absolute_url(self):
+    #     return reverse("product_detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
