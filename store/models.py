@@ -1,8 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth import get_user_model
+from django.db.models import Avg, Count
+
+
+User = get_user_model()
 
 
 class BaseModel(models.Model):
@@ -31,7 +35,7 @@ class Category(BaseModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Product(BaseModel):
@@ -43,6 +47,14 @@ class Product(BaseModel):
     description = models.TextField(null=True, blank=True)
     percentage = models.PositiveSmallIntegerField(default=0)
     views_count = models.PositiveIntegerField(default=0)
+
+    @property
+    def reviews_count(self):
+        return self.reviews.count()
+
+    @property
+    def average_rate(self):
+        return self.reviews.aggregate(avg=Avg("rate"))["avg"] or 0
 
     @property
     def discount_price(self):
@@ -59,8 +71,7 @@ class Product(BaseModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
-        # return f"{self.discount_price}"
+        return f"{self.name}"
 
     class Meta:
         verbose_name = "Product"
@@ -79,7 +90,15 @@ class Review(BaseModel):
         on_delete=models.CASCADE,
         related_name='reviews',
     )
-    rate = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    rate = models.PositiveSmallIntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ],
+        default=5,
+        null=True,
+        blank=True,
+    )
     review = models.TextField(null=True, blank=True)
 
     class Meta:
