@@ -37,6 +37,10 @@ urlpatterns = [
         '',
         include('store.urls'),
     ),
+    path(
+        '',
+        include('user.urls'),
+    ),
 
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT}),
