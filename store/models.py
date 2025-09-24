@@ -39,11 +39,21 @@ class Category(BaseModel):
 
 
 class Product(BaseModel):
+    class PriceType(models.TextChoices):
+        UZS = "UZS", "so'm"
+        RUB = "RUB", "₽"
+        USD = "USD", "$"
+
     name = models.CharField(max_length=225, unique=True, db_index=True)
     slug = models.SlugField(max_length=300, unique=True, db_index=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     image = models.ImageField(upload_to='products', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    price_type = models.CharField(
+        max_length=3,
+        choices=PriceType.choices,
+        default=PriceType.UZS,
+    )
     description = models.TextField(null=True, blank=True)
     percentage = models.PositiveSmallIntegerField(default=0)
     views_count = models.PositiveIntegerField(default=0)
@@ -107,27 +117,3 @@ class Review(BaseModel):
 
     def __str__(self):
         return f"{self.user} - {self.product}"
-
-
-class Banner(BaseModel):
-    name = models.CharField(
-        max_length=225,
-        unique=True,
-        db_index=True,
-    )
-    description = models.TextField(
-        blank=True,
-        null=True,
-    )
-    image = models.ImageField(
-        upload_to="banners/",
-        null=True,
-        blank=True,
-    )
-
-    class Meta:
-        verbose_name = "Banner"
-        verbose_name_plural = "Banners"
-
-    def __str__(self):
-        return f"{self.name}"
