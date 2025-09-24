@@ -59,14 +59,6 @@ class Product(BaseModel):
     views_count = models.PositiveIntegerField(default=0)
 
     @property
-    def reviews_count(self):
-        return self.reviews.count()
-
-    @property
-    def average_rate(self):
-        return self.reviews.aggregate(avg=Avg("rate"))["avg"] or 0
-
-    @property
     def discount_price(self):
         if self.percentage:
             return self.price - (self.price * self.percentage / 100)
@@ -86,34 +78,3 @@ class Product(BaseModel):
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = "Products"
-
-
-class Review(BaseModel):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='review',
-    )
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='reviews',
-    )
-    rate = models.PositiveSmallIntegerField(
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(5),
-        ],
-        default=5,
-        null=True,
-        blank=True,
-    )
-    review = models.TextField(null=True, blank=True)
-
-    class Meta:
-        verbose_name = "Review"
-        verbose_name_plural = "Reviews"
-
-    def __str__(self):
-        return f"{self.user} - {self.product}"

@@ -1,30 +1,34 @@
-from django.views.generic import ListView
+from django.views import View
+from django.shortcuts import render
 
 from .models import Product
 
 
-class HomePageView(ListView):
+class HomePageView(View):
     model = Product
     template_name = 'index.html'
-    context_object_name = 'products'
 
     def get_queryset(self):
-        queryset = Product.objects.filter(is_active=True)
+        return self.model.objects.filter(is_active=True)
 
-        cat = self.request.GET.get('cat')
+    def get(self, request, *args, **kwargs):
+        cat = request.GET.get('cat')
+        products = self.get_queryset().order_by('?')
 
         if cat:
-            queryset = queryset.filter(category__slug__exact=cat)
+            products = products.filter(category__slug__iexact=cat)
 
-        return queryset.order_by('?')
+        context = {'products': products}
+
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         search = request.POST.get('q')
-        """
-        .
-        """
+        products = self.get_queryset().order_by('?')
 
+        if search:
+            products = products.filter(name__icontains=search)
 
-"""
-View da yozib koraman
-"""
+        context = {'products': products}
+
+        return render(request, self.template_name, context)
