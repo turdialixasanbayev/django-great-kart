@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
 
 from .models import Product, Category
 
@@ -11,7 +11,7 @@ admin.site.index_title = "Welcome to Django GreatKart Admin Panel"
 admin.site.empty_value_display = "Not available"
 
 
-admin.site.unregister(Group)
+# admin.site.unregister(Group)
 
 admin.site.register(Product)
 admin.site.register(Category)

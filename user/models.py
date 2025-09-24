@@ -11,8 +11,8 @@ class CustomUser(AbstractUser):
     User Model
     """
 
-    groups = None
-    user_permissions = None
+    # groups = None
+    # user_permissions = None
 
     class GenderChoices(models.TextChoices):
         MALE = "M", "Male"
