@@ -26,9 +26,6 @@ class Category(BaseModel):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
-    # def get_absolute_url(self):
-    #     return reverse("category_detail", kwargs={"slug": self.slug})
-
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -64,8 +61,8 @@ class Product(BaseModel):
             return self.price - (self.price * self.percentage / 100)
         return self.price
 
-    # def get_absolute_url(self):
-    #     return reverse("product_detail", kwargs={"slug": self.slug})
+    def get_absolute_url(self):
+        return reverse("product_detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

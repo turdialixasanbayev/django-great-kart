@@ -39,14 +39,14 @@
                             </button>
                             <div class="dropdown-menu">
                                 {% for cat in categories %}
-                                <a class="dropdown-item" href="?cat={{ cat.slug }}">{{ cat.name }}</a>
+                                <a class="dropdown-item" href="/?cat={{ cat.slug }}">{{ cat.name }}</a>
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                     <a href="#" class="btn btn-outline-primary">Store</a>
                     <div class="col-lg  col-md-6 col-sm-12 col">
-                        <form method="post" class="search">
+                        <form method="post" class="search" action="{% url 'home' %}">
                             {% csrf_token %}
                             <div class="input-group w-100">
                                 <input type="text" class="form-control" name="q" style="width:60%;" placeholder="Search">

@@ -16,9 +16,9 @@
 			<div class="col-md-3">
 				{% for product in products %}
 				<div class="card card-product-grid">
-					<a href="#" class="img-wrap"> <img src="{{ product.image.url }}"> </a>
+					<a href="{{ product.image.url }}" class="img-wrap"> <img src="{{ product.image.url }}"> </a>
 					<figcaption class="info-wrap">
-						<a href="#" class="title">{{ product.name }}</a>
+						<a href="{{ product.get_absolute_url }}" class="title">{{ product.name }}</a>
 						<div class="price mt-1">{{ product.get_price_type_display }} {{ product.discount_price|floatformat:0 }}</div>
 					</figcaption>
 				</div>
