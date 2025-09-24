@@ -34,3 +34,14 @@ class ProductDetailPageView(View):
         product = get_object_or_404(Product, slug__iexact=slug, is_active=True)
         context = {'product': product}
         return render(request=request, template_name=self.template_name, context=context)
+
+
+class StorePageView(View):
+    template_name = 'store.html'
+    def get(self, request, *args, **kwargs):
+        products = Product.objects.filter(is_active=True).order_by('created_at')
+        context = {}
+        context['products'] = products[:8]
+        return render(request, self.template_name, context)
+
+store_view = StorePageView.as_view()

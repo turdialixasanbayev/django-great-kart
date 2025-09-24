@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-outline-primary">Store</a>
+                    <a href="{% url 'store_page' %}" class="btn btn-outline-primary">Store</a>
                     <div class="col-lg  col-md-6 col-sm-12 col">
                         <form method="post" class="search" action="{% url 'home' %}">
                             {% csrf_token %}
