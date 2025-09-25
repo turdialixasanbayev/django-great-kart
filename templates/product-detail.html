@@ -25,7 +25,7 @@
 						</div>
 						<p>{{ product.description }}</p>
 						<hr>
-						<a href="#" class="btn  btn-primary"> <span class="text">Add to cart</span>
+						<a href="{% url 'add_to_cart' product.pk %}" class="btn  btn-primary"> <span class="text">Add to cart</span>
 							<i class="fas fa-shopping-cart"></i> </a>
 					</article>
 				</main>

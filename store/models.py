@@ -45,7 +45,7 @@ class Product(BaseModel):
     slug = models.SlugField(max_length=300, unique=True, db_index=True, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     image = models.ImageField(upload_to='products', null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     price_type = models.CharField(
         max_length=3,
         choices=PriceType.choices,
