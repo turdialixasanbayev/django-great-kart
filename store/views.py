@@ -32,6 +32,8 @@ class ProductDetailPageView(View):
 
     def get(self, request, slug, *args, **kwargs):
         product = get_object_or_404(Product, slug__iexact=slug, is_active=True)
+        product.views_count += 1
+        product.save()
         context = {'product': product}
         return render(request=request, template_name=self.template_name, context=context)
 
