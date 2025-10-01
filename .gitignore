@@ -206,7 +206,11 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# .gitignore for Python Projects
+
 .idea/
 .vscode/
 staticfiles/
 mediafiles/
+
+# locale/ # internasionale

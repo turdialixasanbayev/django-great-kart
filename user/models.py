@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
@@ -28,7 +29,7 @@ class CustomUser(AbstractUser):
         null=True,
     )
     image = models.ImageField(
-        upload_to="users/",
+        upload_to="users",
         blank=True,
         null=True,
     )
@@ -50,6 +51,11 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+        ordering = ['date_joined']
+        indexes = [
+            models.Index(fields=["email"]),
+            models.Index(fields=["phone_number"]),
+        ]
 
     @property
     def age(self):

@@ -1,9 +1,13 @@
 from django.db import models
+
+# from django.db.models import Avg, Count
+
 from django.utils.text import slugify
 from django.urls import reverse
-from django.core.validators import MinValueValidator, MaxValueValidator
+
+# from django.core.validators import MinValueValidator, MaxValueValidator
+
 from django.contrib.auth import get_user_model
-from django.db.models import Avg, Count
 
 
 User = get_user_model()
@@ -25,6 +29,11 @@ class Category(BaseModel):
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=["name"]),
+            models.Index(fields=["slug"]),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -36,6 +45,10 @@ class Category(BaseModel):
 
 
 class Product(BaseModel):
+    """
+    Product model
+    """
+
     class PriceType(models.TextChoices):
         UZS = "UZS", "so'm"
         RUB = "RUB", "₽"
@@ -61,8 +74,17 @@ class Product(BaseModel):
             return self.price - (self.price * self.percentage / 100)
         return self.price
 
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=["name"]),
+            models.Index(fields=["slug"]),
+        ]
+
     def get_absolute_url(self):
-        return reverse("product_detail", kwargs={"slug": self.slug})
+        return reverse("detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -71,7 +93,3 @@ class Product(BaseModel):
 
     def __str__(self):
         return f"{self.name}"
-
-    class Meta:
-        verbose_name = "Product"
-        verbose_name_plural = "Products"

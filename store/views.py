@@ -10,43 +10,47 @@ class HomePageView(View):
     def get_queryset(self):
         return self.model.objects.filter(is_active=True)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         cat = request.GET.get('cat')
         search = request.GET.get('q')
+
         products = self.get_queryset().order_by('?')
+
         if cat:
             products = products.filter(category__slug__iexact=cat)
         if search:
             products = products.filter(name__icontains=search)
-        context = {'products': products}
-        return render(request, self.template_name, context)
 
-    # def post(self, request, *args, **kwargs):
-    #     search = request.POST.get('q')
-    #     products = self.get_queryset().order_by('?')
-    #     if search:
-    #         products = products.filter(name__icontains=search)
-    #     context = {'products': products}
-    #     return render(request, self.template_name, context)
+        context = {'products': products}
+
+        return render(request, self.template_name, context)
 
 
 class ProductDetailPageView(View):
     template_name = 'product-detail.html'
 
-    def get(self, request, slug, *args, **kwargs):
+    def get(self, request, slug):
         product = get_object_or_404(Product, slug__iexact=slug, is_active=True)
+
         product.views_count += 1
         product.save()
+
         context = {'product': product}
+
         return render(request=request, template_name=self.template_name, context=context)
 
 
 class StorePageView(View):
     template_name = 'store.html'
-    def get(self, request, *args, **kwargs):
+
+    def get(self, request):
         products = Product.objects.filter(is_active=True).order_by('created_at')
+
         context = {}
+
         context['products'] = products[:8]
+
         return render(request, self.template_name, context)
+
 
 store_view = StorePageView.as_view()

@@ -10,13 +10,13 @@ urlpatterns = [
         name='home',
     ),
     path(
-        'product-detail/<slug:slug>/',
-        ProductDetailPageView.as_view(),
-        name='product_detail',
+        'store/',
+        store_view,
+        name='store',
     ),
     path(
-        'store-page/',
-        store_view,
-        name='store_page',
+        'detail/<slug:slug>/',
+        ProductDetailPageView.as_view(),
+        name='detail',
     ),
 ]

@@ -35,7 +35,12 @@ class CustomUserManager(UserManager):
         email = self.validate_email(email)
         email = self.normalize_email(email)
 
-        user = self.model(username=username, email=email, phone_number=phone_number, **extra_fields)
+        user = self.model(
+            username=username,
+            email=email,
+            phone_number=phone_number,
+            **extra_fields,
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -49,4 +54,10 @@ class CustomUserManager(UserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(username=username, email=email, phone_number=phone_number, password=password, **extra_fields)
+        return self.create_user(
+            username=username,
+            email=email,
+            phone_number=phone_number,
+            password=password,
+            **extra_fields,
+        )
