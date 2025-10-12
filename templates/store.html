@@ -53,8 +53,8 @@
 								<div class="fix-height">
 									<a href="/detail/{{ product.slug }}" class="title">{{ product.name }}</a>
 									<div class="price-wrap mt-2">
-										<span class="price">{{ product.get_price_type_display }} {{ product.discount_price|floatformat:0 }}</span>
-										<del class="price-old">{{ product.get_price_type_display }} {{ product.price|floatformat:0 }}</del>
+										<span class="price">{{ product.discount_price|floatformat:0 }} {{ product.get_price_type_display }}</span>
+										<del class="price-old">{{ product.price|floatformat:0 }} {{ product.get_price_type_display }}</del>
 									</div>
 								</div>
 								<a href="{% url 'add_to_cart' product.pk %}" class="btn btn-block btn-success">Added to cart </a>

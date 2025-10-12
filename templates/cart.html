@@ -40,8 +40,8 @@
 								</td>
 								<td>
 									<div class="price-wrap">
-										<var class="price">{{ item.product.get_price_type_display }} {{ item.product.discount_price|floatformat:0 }}</var>
-										<small class="text-muted"> {{ item.product.get_price_type_display }} {{ item.product.price|floatformat:0 }} each </small>
+										<var class="price">{{ item.product.discount_price|floatformat:0 }} {{ item.product.get_price_type_display }}</var>
+										<small class="text-muted"> {{ item.product.price|floatformat:0 }} {{ item.product.get_price_type_display }} each </small>
 									</div>
 								</td>
 								<td class="text-right">
