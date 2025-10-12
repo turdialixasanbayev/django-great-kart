@@ -4,6 +4,18 @@
 
 {% block title %} Home {% endblock %}
 
+{% block banner %}
+
+<section class="section-intro padding-y-sm">
+	<div class="container">
+		<div class="intro-banner-wrap">
+			<img src="{% static '' %}images/banners/1.jpg" class="img-fluid rounded">
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
 {% block content %}
 
 <section class="section-name padding-y-sm">
@@ -19,7 +31,8 @@
 					<a href="{{ product.image.url }}" class="img-wrap"> <img src="{{ product.image.url }}"> </a>
 					<figcaption class="info-wrap">
 						<a href="{{ product.get_absolute_url }}" class="title">{{ product.name }}</a>
-						<div class="price mt-1">{{ product.get_price_type_display }} {{ product.discount_price|floatformat:0 }}</div>
+						<div class="price mt-1">{{ product.get_price_type_display }} {{
+							product.discount_price|floatformat:0 }}</div>
 					</figcaption>
 				</div>
 				{% endfor %}
