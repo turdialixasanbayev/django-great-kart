@@ -1,5 +1,8 @@
 from django.db import models
 
+from phonenumber_field.modelfields import PhoneNumberField
+from ckeditor.fields import RichTextField
+
 from store.models import BaseModel
 
 
@@ -58,9 +61,9 @@ class Order(BaseModel):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    phone_number = models.CharField(max_length=20)
+    phone_number = PhoneNumberField(max_length=25, region="UZ")
     address = models.CharField(max_length=225)
-    notes = models.TextField(blank=True, null=True)
+    notes = RichTextField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Order'

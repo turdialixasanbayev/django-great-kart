@@ -4,6 +4,9 @@ from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
 
+from phonenumber_field.modelfields import PhoneNumberField
+from ckeditor.fields import RichTextField
+
 from .managers import CustomUserManager
 
 
@@ -20,7 +23,7 @@ class CustomUser(AbstractUser):
         FEMALE = "F", "Female"
 
     email = models.EmailField(unique=True, db_index=True)
-    phone_number = models.CharField(max_length=20, unique=True, db_index=True)
+    phone_number = PhoneNumberField(max_length=25, region="UZ", unique=True)
 
     gender = models.CharField(
         max_length=1,
@@ -33,7 +36,7 @@ class CustomUser(AbstractUser):
         blank=True,
         null=True,
     )
-    bio = models.TextField(
+    bio = RichTextField(
         blank=True,
         null=True,
     )

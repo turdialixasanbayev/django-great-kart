@@ -46,6 +46,8 @@ urlpatterns = [
         include('checkout.urls'),
     ),
 
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,

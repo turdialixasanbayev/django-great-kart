@@ -5,6 +5,8 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
+from ckeditor.fields import RichTextField
+
 # from django.core.validators import MinValueValidator, MaxValueValidator
 
 from django.contrib.auth import get_user_model
@@ -64,7 +66,7 @@ class Product(BaseModel):
         choices=PriceType.choices,
         default=PriceType.UZS,
     )
-    description = models.TextField(null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
     percentage = models.PositiveSmallIntegerField(default=0)
     views_count = models.PositiveIntegerField(default=0)
 
